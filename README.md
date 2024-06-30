@@ -79,3 +79,38 @@ This project demonstrates how to create a URL shortener web application using Py
 
 ## Project Structure
 
+## Code Explanation
+
+The code imports the pyshorteners library and the following modules from the Flask framework, all of which are needed for shortening URLs:
+
+- **Flask**: The Flask framework itself, which is used to create the web application.
+- **render_template**: A template rendering package used to generate the output of HTML files from the folder `templates`.
+- **request**: An object from the Flask framework that contains all the data that a user sends from the frontend to the backend as a part of an HTTP request.
+
+The function `home()` is created to take a URL submitted in the form and output a short URL. The `app.route()` decorator binds the function to the specific URL route for running the app, and the POST/GET methods handle the requests.
+
+In the `home()` function, there is an if-else conditional statement:
+
+- For the if statement (`if request.method=="POST"`):
+  - A variable called `url_received` is set to `request.form["url"]`, which is the URL submitted in the form. Here, `url` is the name of the input field defined in the HTML form created earlier.
+  - A variable called `short_url` is set to `pyshorteners.Shortener().tinyurl.short(url_received)`. Here, two methods are used from the pyshorteners library: `.Shortener()` and `.short()`. The `.Shortener()` function creates a pyshorteners class instance, and the `.short()` function takes in the URL as an argument and shortens it.
+  - The `short()` function `tinyurl.short()` is one of the pyshorteners library’s many APIs. Another example is `osdb.short()`, which can also be used for the same purpose.
+  - The `render_template()` function is used to render the HTML file template `form.html` and send URLs back to the form through arguments. The `new_url` argument is set to `short_url` and `old_url` is set to `url_received`.
+
+- For the else statement (`else`):
+  - If the request method is other than POST, only the `form.html` HTML template will be rendered.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
